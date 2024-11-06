@@ -6,7 +6,7 @@
 /*   By: akovalch <akovalch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 13:53:26 by akovalch          #+#    #+#             */
-/*   Updated: 2024/11/05 18:45:18 by akovalch         ###   ########.fr       */
+/*   Updated: 2024/11/06 18:39:09 by akovalch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,10 @@ size_t	ft_strlen(const char *str)
 		str++;
 	}
 	return (counter);
+}
+char	*ft_free(char *str)
+{
+	free(str);
+	str = NULL;
+	return (NULL);
 }
