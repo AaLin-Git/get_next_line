@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovalch <akovalch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 14:37:25 by akovalch          #+#    #+#             */
-/*   Updated: 2024/11/12 16:38:42 by akovalch         ###   ########.fr       */
+/*   Created: 2024/11/12 15:40:21 by akovalch          #+#    #+#             */
+/*   Updated: 2024/11/12 15:40:30 by akovalch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *str)
 {
@@ -25,15 +25,23 @@ size_t	ft_strlen(const char *str)
 	return (counter);
 }
 
-char	*allocate_empty(void)
+char	*ft_strdup(const char *s)
 {
 	char	*str;
+	char	*flag;
 
-	str = (char *)malloc(1 * sizeof(char));
+	str = malloc((ft_strlen(s) + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
-	str[0] = '\0';
-	return (str);
+	flag = str;
+	while (*s)
+	{
+		*str = *s;
+		s++;
+		str++;
+	}
+	*str = '\0';
+	return ((char *)flag);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -85,7 +93,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	s_len = ft_strlen(s);
 	i = 0;
 	if (start >= s_len)
-		return (allocate_empty());
+		return (ft_strdup(""));
 	if (s_len < (start + len))
 		len = s_len - start;
 	substr = malloc((len + 1) * sizeof(char));

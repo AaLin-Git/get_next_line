@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovalch <akovalch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 14:30:17 by akovalch          #+#    #+#             */
-/*   Updated: 2024/11/12 16:37:39 by akovalch         ###   ########.fr       */
+/*   Created: 2024/11/12 15:44:29 by akovalch          #+#    #+#             */
+/*   Updated: 2024/11/12 16:48:58 by akovalch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_free(char **str)
 {
@@ -34,9 +34,7 @@ char	*read_line(int fd, char *buffer, char *storage)
 			break ;
 		buffer[bytes] = '\0';
 		if (!storage)
-		{
-			storage = allocate_empty();
-		}
+			storage = ft_strdup("");
 		temp = storage;
 		storage = ft_strjoin(temp, buffer);
 		free(temp);
@@ -68,22 +66,22 @@ char	*split_storage(char **line)
 
 char	*get_next_line(int fd)
 {
-	static char	*storage;
+	static char	*storage[2048];
 	char		*buffer;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (ft_free(&storage));
+		return (ft_free(&storage[fd]));
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
-		return (ft_free(&storage));
-	line = read_line(fd, buffer, storage);
+		return (ft_free(&storage[fd]));
+	line = read_line(fd, buffer, storage[fd]);
 	free(buffer);
 	if (!line)
 	{
-		storage = NULL;
+		storage[fd] = NULL;
 		return (NULL);
 	}
-	storage = split_storage(&line);
+	storage[fd] = split_storage(&line);
 	return (line);
 }
